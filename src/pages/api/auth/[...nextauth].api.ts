@@ -33,6 +33,7 @@ export function buldNextAuthOptions(
         },
       }),
     ],
+    secret: process.env.NEXT_AUTH_SECRET ?? '',
 
     callbacks: {
       async signIn({ account }) {
