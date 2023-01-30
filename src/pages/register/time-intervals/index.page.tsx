@@ -25,6 +25,7 @@ import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minut
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
+import { useEffect, useState } from 'react'
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -91,10 +92,15 @@ export default function TimeIntervals() {
       ],
     },
   })
+  const [width, setWidth] = useState<number>()
+
+  const isMobile = (width as number) <= 768
 
   const router = useRouter()
 
-  const weekDays = getWeekDays()
+  const weekDays = getWeekDays({
+    short: isMobile,
+  })
 
   const { fields } = useFieldArray({
     control,
@@ -111,6 +117,18 @@ export default function TimeIntervals() {
 
     await router.push('/register/update-profile')
   }
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange)
+
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange)
+    }
+  }, [])
 
   return (
     <>

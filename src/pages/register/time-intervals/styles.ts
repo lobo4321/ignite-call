@@ -4,6 +4,12 @@ export const IntervalBox = styled(Box, {
   marginTop: '$6',
   display: 'flex',
   flexDirection: 'column',
+
+  '@media(max-width:768px)': {
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingLeft: 0,
+  },
 })
 
 export const IntervalsContainer = styled('div', {
